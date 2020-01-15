@@ -88,13 +88,13 @@
             let now = new Date();
             let target;
 
-            if (now.getHours() > 23 && now.getMinutes() > 37) {
+            if (now.getHours() > 21 && now.getMinutes() > 37) {
                 target = new Date(Date.now() + (24 * 60 * 60 * 1000));
-                target.setHours(23, 37, 0);
+                target.setHours(21, 37, 0);
             }
             else {
                 target = new Date();
-                target.setHours(23, 37, 0);
+                target.setHours(21, 37, 0);
             }
 
             const timespan = countdown(now, target);
@@ -108,7 +108,7 @@
 
 <body>
     <div class="container">
-        <div class="the-hour">23:37</div>
+        <div class="the-hour">21:37</div>
         <div class="countdown">
             <span>Pozostało </span>
             <span id="countdown"></span>
