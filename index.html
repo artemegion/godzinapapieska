@@ -101,8 +101,14 @@
                 }
 
                 const timespan = countdown(now, target);
+                let displayString;
 
-                let displayString = formatHours(timespan.hours) + ' ' + (timespan.minutes && formatMinutes(timespan.minutes)) + ' ' + (timespan.seconds && formatSeconds(timespan.seconds));
+                if (timespan.value < 1 * 1000) {
+                    displayString = '';
+                }
+                else {
+                    displayString = formatHours(timespan.hours) + ' ' + (timespan.minutes && formatMinutes(timespan.minutes)) + ' ' + (timespan.seconds && formatSeconds(timespan.seconds));
+                }
 
                 countdownElem.innerText = displayString;
             }, 1000);
