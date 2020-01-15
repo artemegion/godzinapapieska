@@ -4,10 +4,17 @@
 <head>
     <title>Godzina Papieska</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
 
     <style>
-        .container {
+        html, body {
+            margin: 0;
+            padding: 0;
+
+            height: 100%;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
 
@@ -22,6 +29,20 @@
         .the-hour {
             font-size: 6em;
             font-weight: bold;
+        }
+
+        .spacer {
+            flex-basis: 100%;
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+
+        .footer {
+            flex-basis: auto;
+            flex-grow: 0;
+            flex-shrink: 0;
+
+            padding: 0.5em;
         }
     </style>
 
@@ -175,11 +196,12 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="the-hour">21:37</div>
-        <div id="countdown" class="countdown">
-        </div>
-    </div>
+    <div class="the-hour">21:37</div>
+    <div id="countdown" class="countdown"></div>
+
+    <div class="spacer"></div>
+
+    <div class="footer">Sources available on <a href="https://github.com/artemegion/godzinapapieska">GitHub</a></div>
 </body>
 
 </html>
