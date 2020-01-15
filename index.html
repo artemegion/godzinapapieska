@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Godzina Papieska</title>
+    <meta charset="utf-8" />
+
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+
+            justify-content: flex-start;
+            align-items: center;
+
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+
+            color: rgb(140, 140, 140);
+        }
+
+        .the-hour {
+            font-size: 6em;
+            font-weight: bold;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countdown/2.6.0/countdown.min.js"
+        integrity="sha256-SECU2CXX/L0UAxX9pvFJ6cs1qiGsPEFDmVSGndEJRsE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+        integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/pl.js"
+        integrity="sha256-prSi7A1V9ZxDIIGoYopovpFgGHQodz6JVZu5Aad7o8s=" crossorigin="anonymous"></script>
+
+    <script>
+        function getLastCharAsNum(str) {
+            str = str.toString();
+            return Number.parseInt(str[str.length - 1]);
+        }
+
+        function formatHours(hours) {
+            let formatted = hours + ' ';
+
+            if (hours < 10) {
+                formatted += ['godzin', 'godzina', 'godziny', 'godziny', 'godziny', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin'][getLastCharAsNum(hours)];
+            } else if (hours < 20) {
+                formatted += ['godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin'][getLastCharAsNum(hours)];
+            } else {
+                formatted += ['godzin', 'godzin', 'godziny', 'godziny', 'godziny'][getLastCharAsNum(hours)];
+            }
+
+            return formatted;
+        }
+
+        function formatMinutes(minutes) {
+            let formatted = minutes + ' ';
+
+            if (minutes < 10) {
+                formatted += ['minut', 'minuta', 'minuty', 'minuty', 'minuty', 'minut', 'minut', 'minut', 'minut', 'minut'][getLastCharAsNum(minutes)];
+            } else if (minutes < 20) {
+                formatted += ['minut', 'minut', 'minut', 'minut', 'minut', 'minut', 'minut', 'minut', 'minut', 'minut'][getLastCharAsNum(minutes)];
+            } else {
+                formatted += ['minut', 'minut', 'minuty', 'minuty', 'minuty', 'minut', 'minut', 'minut', 'minut', 'minut'][getLastCharAsNum(minutes)];
+            }
+
+            return formatted;
+        }
+
+        function formatSeconds(seconds) {
+            let formatted = seconds + ' ';
+
+            if (seconds < 10) {
+                formatted += ['sekund', 'sekunda', 'sekundy', 'sekundy', 'sekundy', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund'][getLastCharAsNum(seconds)];
+            } else if (seconds < 20) {
+                formatted += ['sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund'][getLastCharAsNum(seconds)];
+            } else {
+                formatted += ['sekund', 'sekund', 'sekundy', 'sekundy', 'sekundy', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund'][getLastCharAsNum(seconds)];
+            }
+
+            return formatted;
+        }
+
+        document.addEventListener('readystatechange', () => {
+            if (document.readyState != 'complete')
+                return;
+
+            const countdownElem = document.getElementById('countdown');
+
+            let now = new Date();
+            let target;
+
+            if (now.getHours() > 23 && now.getMinutes() > 37) {
+                target = new Date(Date.now() + (24 * 60 * 60 * 1000));
+                target.setHours(23, 37, 0);
+            }
+            else {
+                target = new Date();
+                target.setHours(23, 37, 0);
+            }
+
+            const timespan = countdown(now, target);
+
+            let displayString = formatHours(timespan.hours) + ' ' + (timespan.minutes && formatMinutes(timespan.minutes)) + ' ' + (timespan.seconds && formatSeconds(timespan.seconds));
+
+            countdownElem.innerText = displayString;
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="the-hour">23:37</div>
+        <div class="countdown">
+            <span>Pozostało </span>
+            <span id="countdown"></span>
+        </div>
+    </div>
+</body>
+
+</html>
