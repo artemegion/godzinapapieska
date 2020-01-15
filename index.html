@@ -80,28 +80,31 @@
         }
 
         document.addEventListener('readystatechange', () => {
+
             if (document.readyState != 'complete')
                 return;
 
-            const countdownElem = document.getElementById('countdown');
+            setInterval(() => {
+                const countdownElem = document.getElementById('countdown');
 
-            let now = new Date();
-            let target;
+                let now = new Date();
+                let target;
 
-            if (now.getHours() > 21 && now.getMinutes() > 37) {
-                target = new Date(Date.now() + (24 * 60 * 60 * 1000));
-                target.setHours(21, 37, 0);
-            }
-            else {
-                target = new Date();
-                target.setHours(21, 37, 0);
-            }
+                if (now.getHours() > 21 && now.getMinutes() > 37) {
+                    target = new Date(Date.now() + (24 * 60 * 60 * 1000));
+                    target.setHours(21, 37, 0);
+                }
+                else {
+                    target = new Date();
+                    target.setHours(21, 37, 0);
+                }
 
-            const timespan = countdown(now, target);
+                const timespan = countdown(now, target);
 
-            let displayString = formatHours(timespan.hours) + ' ' + (timespan.minutes && formatMinutes(timespan.minutes)) + ' ' + (timespan.seconds && formatSeconds(timespan.seconds));
+                let displayString = formatHours(timespan.hours) + ' ' + (timespan.minutes && formatMinutes(timespan.minutes)) + ' ' + (timespan.seconds && formatSeconds(timespan.seconds));
 
-            countdownElem.innerText = displayString;
+                countdownElem.innerText = displayString;
+            }, 1000);
         });
     </script>
 </head>
