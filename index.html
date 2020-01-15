@@ -180,7 +180,7 @@
             const formattedMinutes = formatMinutes(timespan.minutes);
             const formattedSeconds = formatSeconds(timespan.seconds);
 
-            let displayString = formatLabel(formattedHours, formattedMinutes, formattedSeconds) + ' ' + formattedHours + ' ' + (timespan.minutes && formattedMinutes) + ' ' + (timespan.seconds && formattedSeconds);
+            let displayString = formatLabel(formattedHours, formattedMinutes, formattedSeconds) + ' ' + formattedHours + ' ' + (typeof timespan.minutes == 'number' ? formattedMinutes : '') + ' ' + (typeof timespan.seconds == 'number' ? formattedSeconds : '');
             countdownElem.innerText = displayString;
         }
 
