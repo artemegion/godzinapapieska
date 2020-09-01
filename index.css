@@ -1,0 +1,61 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: flex-start;
+    align-items: center;
+
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+
+    color: rgb(140, 140, 140);
+}
+
+.the-hour {
+    font-size: 6em;
+    font-weight: bold;
+}
+
+.em-spacer {
+    flex-basis: 2em;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.image-container {
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    max-width: 100%;
+    max-width: calc(100% - 2em);
+
+    display: none;
+}
+
+.image-container.visible {
+    display: block;
+}
+
+.spacer {
+    flex-basis: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.footer {
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    font-size: 10pt;
+
+    padding: 0.5em;
+}

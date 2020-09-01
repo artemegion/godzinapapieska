@@ -6,202 +6,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
 
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-
-            height: 100%;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-
-            justify-content: flex-start;
-            align-items: center;
-
-            font-family: Tahoma, Geneva, Verdana, sans-serif;
-
-            color: rgb(140, 140, 140);
-        }
-
-        .the-hour {
-            font-size: 6em;
-            font-weight: bold;
-        }
-
-        .spacer {
-            flex-basis: 100%;
-            flex-grow: 1;
-            flex-shrink: 1;
-        }
-
-        .footer {
-            flex-basis: auto;
-            flex-grow: 0;
-            flex-shrink: 0;
-
-            padding: 0.5em;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="index.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/countdown/2.6.0/countdown.min.js"
         integrity="sha256-SECU2CXX/L0UAxX9pvFJ6cs1qiGsPEFDmVSGndEJRsE=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
-        integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/pl.js"
-        integrity="sha256-prSi7A1V9ZxDIIGoYopovpFgGHQodz6JVZu5Aad7o8s=" crossorigin="anonymous"></script>
-
-    <script>
-        function getLastCharAsNum(str) {
-            str = str.toString();
-            return Number.parseInt(str[str.length - 1]);
-        }
-
-        function getLastChar(str) {
-            str = str.toString();
-            return str[str.length - 1];
-        }
-
-        function formatLabel(hours, minutes, seconds) {
-            if (hours) {
-                switch (getLastChar(hours)) {
-                    case 'a':
-                        return 'Pozostała';
-                    case 'y':
-                        return 'Pozostały';
-                    default:
-                        return 'Pozostało';
-                }
-            } else if (minutes) {
-                switch (getLastChar(minutes)) {
-                    case 'a':
-                        return 'Pozostała';
-                    case 'y':
-                        return 'Pozostały';
-                    default:
-                        return 'Pozostało';
-                }
-            } else if (seconds) {
-                switch (getLastChar(seconds)) {
-                    case 'a':
-                        return 'Pozostała';
-                    case 'y':
-                        return 'Pozostały';
-                    default:
-                        return 'Pozostało';
-                }
-            } else {
-                return 'Pozostało'
-            }
-        }
-
-        function formatHours(hours) {
-            if (hours == 0)
-                return '';
-
-            let formatted = hours + ' ';
-
-            if (hours < 10) {
-                formatted += ['godzin', 'godzina', 'godziny', 'godziny', 'godziny', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin'][getLastCharAsNum(hours)];
-            } else if (hours < 20) {
-                formatted += ['godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin', 'godzin'][getLastCharAsNum(hours)];
-            } else {
-                formatted += ['godzin', 'godzin', 'godziny', 'godziny', 'godziny'][getLastCharAsNum(hours)];
-            }
-
-            return formatted;
-        }
-
-        function formatMinutes(minutes) {
-            if (minutes == 0)
-                return '';
-
-            let formatted = minutes + ' ';
-
-            if (minutes < 10) {
-                formatted += ['minut', 'minuta', 'minuty', 'minuty', 'minuty', 'minut', 'minut', 'minut', 'minut', 'minut'][getLastCharAsNum(minutes)];
-            } else if (minutes < 20) {
-                formatted += ['minut', 'minut', 'minut', 'minut', 'minut', 'minut', 'minut', 'minut', 'minut', 'minut'][getLastCharAsNum(minutes)];
-            } else {
-                formatted += ['minut', 'minut', 'minuty', 'minuty', 'minuty', 'minut', 'minut', 'minut', 'minut', 'minut'][getLastCharAsNum(minutes)];
-            }
-
-            return formatted;
-        }
-
-        function formatSeconds(seconds) {
-            if (seconds == 0)
-                return '';
-
-            let formatted = seconds + ' ';
-
-            if (seconds < 10) {
-                formatted += ['sekund', 'sekunda', 'sekundy', 'sekundy', 'sekundy', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund'][getLastCharAsNum(seconds)];
-            } else if (seconds < 20) {
-                formatted += ['sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund'][getLastCharAsNum(seconds)];
-            } else {
-                formatted += ['sekund', 'sekund', 'sekundy', 'sekundy', 'sekundy', 'sekund', 'sekund', 'sekund', 'sekund', 'sekund'][getLastCharAsNum(seconds)];
-            }
-
-            return formatted;
-        }
-
-        function wasTargetTimeReachedToday() {
-            let now = new Date();
-            return (now.getHours() >= 21 && now.getMinutes() >= 37) || now.getHours() > 21;
-        }
-
-        function calculateTargetDate() {
-            let target;
-
-            if (wasTargetTimeReachedToday()) {
-                target = new Date(Date.now() + (24 * 60 * 60 * 1000));
-            } else {
-                target = new Date(Date.now());
-            }
-
-            target.setHours(21);
-            target.setMinutes(37);
-            target.setSeconds(0);
-            target.setMilliseconds(0);
-
-            return target;
-        }
-
-        function onUpdate() {
-            const countdownElem = document.getElementById('countdown');
-
-            const target = calculateTargetDate();
-            const timespan = countdown(new Date(), target);
-
-            const formattedHours = formatHours(timespan.hours);
-            const formattedMinutes = formatMinutes(timespan.minutes);
-            const formattedSeconds = formatSeconds(timespan.seconds);
-
-            let displayString = formatLabel(formattedHours, formattedMinutes, formattedSeconds) + ' ' + formattedHours + ' ' + (typeof timespan.minutes == 'number' ? formattedMinutes : '') + ' ' + (typeof timespan.seconds == 'number' ? formattedSeconds : '');
-            countdownElem.innerText = displayString;
-        }
-
-        document.addEventListener('readystatechange', () => {
-
-            if (document.readyState != 'complete')
-                return;
-
-            onUpdate();
-            setInterval(onUpdate, 1000);
-        });
-    </script>
+    <script src="index.js"></script>
 </head>
 
 <body>
     <div class="the-hour">21:37</div>
     <div id="countdown" class="countdown"></div>
 
+
+    <div class="em-spacer"></div>
+
     <div class="spacer"></div>
 
-    <div class="footer">Sources available on <a href="https://github.com/artemegion/godzinapapieska">GitHub</a></div>
+    <div class="footer"><a href="https://github.com/artemegion/godzinapapieska">GitHub</a>
+    </div>
 </body>
 
 </html>
