@@ -46,21 +46,6 @@ a:visited {
     font-weight: bold;
 }
 
-.image-container {
-    flex-basis: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
-
-    max-width: 100%;
-    max-width: calc(100% - 2em);
-
-    display: none;
-}
-
-.image-container.visible {
-    display: block;
-}
-
 .spacer {
     flex-basis: 100%;
     flex-grow: 1;
