@@ -6,6 +6,20 @@ body {
     height: 100%;
 }
 
+body[theme="light"] {
+    --fore-color: rgb(30, 30, 30);
+    --back-color: rgb(255, 255, 255);
+    --link-color: rgb(50, 50, 214);
+    --visited-link-color: rgb(82, 21, 122);
+}
+
+body[theme="dark"] {
+    --fore-color: rgb(230, 230, 230);
+    --back-color: rgb(30, 30, 30);
+    --link-color: rgb(30, 133, 230);
+    --visited-link-color: rgb(138, 68, 184);
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -15,18 +29,21 @@ body {
 
     font-family: Tahoma, Geneva, Verdana, sans-serif;
 
-    color: rgb(140, 140, 140);
+    color: var(--fore-color);
+    background-color: var(--back-color);
+}
+
+a {
+    color: var(--link-color);
+}
+
+a:visited {
+    color: var(--visited-link-color);
 }
 
 .the-hour {
     font-size: 6em;
     font-weight: bold;
-}
-
-.em-spacer {
-    flex-basis: 2em;
-    flex-grow: 0;
-    flex-shrink: 0;
 }
 
 .image-container {
@@ -58,4 +75,22 @@ body {
     font-size: 10pt;
 
     padding: 0.5em;
+}
+
+#theme-switch {
+    user-select: none;
+
+    position: fixed;
+    top: 0.5em;
+    right: 0.5em;
+
+    font-size: 3em;
+}
+
+body[theme="light"] #theme-switch .dark-mode {
+    display: none;
+}
+
+body[theme="dark"] #theme-switch .light-mode {
+    display: none;
 }

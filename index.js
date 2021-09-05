@@ -139,6 +139,34 @@ function onUpdate() {
     }
 }
 
+function getTheme() {
+    return localStorage.getItem('theme') || 'light';
+}
+
+function setTheme(theme) {
+    localStorage.setItem('theme', theme);
+}
+
+function setNextTheme() {
+    let theme = getTheme();
+
+    switch (theme) {
+        case 'light':
+            setTheme('dark');
+            break;
+        case 'dark':
+            setTheme('light');
+            break;
+        default:
+            setTheme('light');
+            break;
+    }
+}
+
+function applyCurrentThemeToBody() {
+    document.body.setAttribute('theme', getTheme());
+}
+
 document.addEventListener('readystatechange', () => {
 
     if (document.readyState != 'complete')
@@ -146,4 +174,11 @@ document.addEventListener('readystatechange', () => {
 
     onUpdate();
     setInterval(onUpdate, 1000);
+
+    applyCurrentThemeToBody();
+
+    document.getElementById('theme-switch').addEventListener('click', () => {
+        setNextTheme();
+        applyCurrentThemeToBody();
+    });
 });
